@@ -4,7 +4,7 @@ const models = require('../models');
 const checkToken = async (token) =>{
         let localID = null;
         try {
-                const { id } = token.decode(token);
+                const id = token.decode(token);
                 localID = id;
         } catch (error) {
                 
@@ -40,7 +40,7 @@ module.exports = {
         },
         decode: async(token)=>{
                 try {
-                        const { id } = await jwt.verify(token, 'config.secret')
+                        const id = await jwt.verify(token, 'config.secret')
                         const user = await models.Usuario.findOne({where: {
                                 id: id,
                                 estado: 1
