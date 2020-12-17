@@ -9,7 +9,7 @@ const checkToken = async (token) =>{
         } catch (error) {
                 
         }
-        const user = await models.user.findOne({where: {
+        const user = await models.Usuario.findOne({where: {
                 id: localID,
                 estado: 1
         }});
@@ -28,10 +28,10 @@ module.exports = {
         encode: async(user)=>{
                 const token = jwt.sign({
                         id: user.id,
-                        name: user.name,
+                        nombre: user.nombre,
                         email: user.email,
                         rol: user.rol,
-                        status: user.estado
+                        estado: user.estado
                 },'config.secret', {
                         expiresIn: 86400,
                 }
@@ -41,7 +41,7 @@ module.exports = {
         decode: async(token)=>{
                 try {
                         const { id } = await jwt.verify(token, 'config.secret')
-                        const user = await models.user.findOne({where: {
+                        const user = await models.Usuario.findOne({where: {
                                 id: id,
                                 estado: 1
                         }});

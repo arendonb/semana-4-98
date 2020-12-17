@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const apiRouterUser = require('./api/users.js');
+const apiRouterUser = require('./api/usuario.js');
 const apiRouterCategoria = require('./api/categoria.js');
 const apiRouterArticulo = require('./api/articulo.js');
 
