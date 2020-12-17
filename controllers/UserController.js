@@ -41,7 +41,7 @@ exports.register = async (req, res, next) => {
                                 message: 'Sorry your request has a conflict with our system state, maybe the email is already bad'
                         })
                 } else{
-                        req.body.password = bcrypt.hashSync(req.body.password, 10);
+                        req.body.password = bcrypt.hashSync(req.body.password, 12);
                         const user = await db.Usuario.create(req.body);
                         res.status(200).json(user)
                 }
