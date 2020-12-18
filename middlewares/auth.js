@@ -25,7 +25,7 @@ module.exports = {
                                 message: 'No hay token!'
                         });
                 }else{
-                        const response = await tokenServices.decode(req.headers.token);
+                        const response = await tokenServices.decode(req.headers.token);                      
                         if(response.rol === "Administrador" || response.rol === "Vendedor"){
                                 next();
                         }else{
