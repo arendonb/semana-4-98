@@ -7,7 +7,7 @@ exports.list = async (req, res, next) => {
                     res.status(200).json(register);
             }else{
                     res.status(404).send({
-                            message: 'No hay categorias registradas'
+                            message: 'No hay articulos registradas'
                     })
             }                            
     } catch (error) {
@@ -33,7 +33,7 @@ exports.add = async (req, res, next) => {
 
 exports.update = async(req, res, next) =>{
         try {
-                const register = await db.Articulo.update({codigo: req.body.codigo, nombre: req.body.nombre, descripcion: req.body.descripcion, categoriaId: req.body.categoriaId, categoria: req.body.categoria, precio_venta: req.body.precio_venta, stock: req.body.stock},
+                const register = await db.Articulo.update({codigo: req.body.codigo, nombre: req.body.nombre, descripcion: req.body.descripcion, categoriaId: req.body.categoriaId, precio_venta: req.body.precio_venta, stock: req.body.stock},
                     {
                     where: {
                         id: req.body.id
