@@ -25,9 +25,10 @@ const checkToken = async (token) =>{
 }
 
 module.exports = {
-        encode: async(user)=>{
+        //encode: async(user)=>{
+        encode: async(id,rol,nombre,email)=>{
                 const token = jwt.sign({
-                        id: user.id,
+                        /* id: user.id,
                         nombre: user.nombre,
                         email: user.email,
                         rol: user.rol,
@@ -35,7 +36,14 @@ module.exports = {
                 },'config.secret', {
                         expiresIn: 86400,
                 }
-                );
+                ); */
+                        id: id,
+                        rol: rol,
+                        nombre: nombre,
+                        email: email
+                }, 'secretKeyToGenerateToken', {
+                        expiresIn: '1d'
+                });
                 return token;
         },
         decode: async(token)=>{

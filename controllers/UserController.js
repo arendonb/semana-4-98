@@ -10,11 +10,9 @@ exports.login = async(req, res, next) => {
                         const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
                         if(passwordIsValid){
                                 const token = await tokenServices.encode(user);
-                                //res.status(200).json({user,tokenReturn});
                                 res.status(200).send({
                                         auth: true,
                                         tokenReturn: token 
-                                        // user: user
                                 })
                         }else{
                                 res.status(401).json({
@@ -34,7 +32,7 @@ exports.login = async(req, res, next) => {
         }
 };
                                  
-exports.register = async (req, res, next) => {
+exports.add = async (req, res, next) => {
         try {
                 const user = await db.Usuario.findOne({where: {email: req.body.email}});
                 if(user){
@@ -78,12 +76,11 @@ exports.update = async(req, res, next) =>{
         try {
                 const user = await db.Usuario.findOne({where: {email: req.body.email}});
                 if(user){
-                        const user = await db.Usuario.update({nombre: req.body.nombre},
+                        const user = await db.Usuario.update({nombre: req.body.nombre, password: req.body.password, email: req.body.email, rol: req.body.rol, tipo_documento: req.body.tipo_documento, num_documento: req.body.num_documento, direccion: req.body.direccion, telefono: req.body.telefono},
                                 {
                                 where: {
                                         email: req.body.email
                                 },
-                                // returning: true
                         });
                 res.status(200).json(user);                
                 }else{
@@ -94,6 +91,40 @@ exports.update = async(req, res, next) =>{
         }catch (error) {
                 res.status(500).send({
                         message: 'Error.'
+                });
+                next(error);
+        }        
+}
+
+exports.activate = async(req, res, next) =>{
+        try {
+            const register = await db.Usuario.update({estado: 1},
+                    {
+                    where: {
+                        id: req.body.id
+                    },
+                });
+                res.status(200).json(register);                
+        }catch (error) {
+                res.status(500).send({
+                    message: 'Error.'
+                });
+                next(error);
+        }        
+}
+
+exports.deactivate = async(req, res, next) =>{
+        try {
+            const register = await db.Usuario.update({estado: 0},
+                    {
+                    where: {
+                        id: req.body.id
+                    },
+                });
+                res.status(200).json(register);                
+        }catch (error) {
+                res.status(500).send({
+                    message: 'Error.'
                 });
                 next(error);
         }        
